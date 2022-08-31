@@ -17,7 +17,7 @@ class Main(MainWindow):
                 self.connect_btn.setText("Disconnect")
                 host = self.host.text()
                 port = int(self.port.text())
-                ip = socket.gethostbyname(ip)
+                host = socket.gethostbyname(host)
     
                 self.client = Client(host,port)
                 if self.client.connect():
