@@ -57,7 +57,7 @@ class Server:
                 while len(mess) < mess_len:
                     mess += conn.recv(self.__mess_size).decode()
 
-                cl_mess = f'[+][{self.__client_soc[conn]}]:{mess}'
+                cl_mess = f'{self.__client_soc[conn]}:{mess}'
                 mess_len = (f'{len(cl_mess):{self.__head}}')
                 mess_len += cl_mess
 
@@ -65,7 +65,7 @@ class Server:
                     del self.__client_soc[conn]
                     break
 
-                self.__send(mess_len)
+                self.__send(mess_len,conn)
 
         except Exception as e:  
             del self.__client_soc[conn]
@@ -75,11 +75,13 @@ class Server:
 
     
 
-    def __send(self,mess:str):
+    def __send(self,mess:str,conn:socket):
         '''
         It send the message to all the clients connected
         '''
-        for soc in self.__client_soc.keys():
+        for soc in self.__client_soc:
+            if soc == conn:
+                continue
             soc.send(mess.encode())
         print(mess)
 
@@ -99,6 +101,8 @@ if __name__ == "__main__":
         
     except ValueError:
         print("Port number should be a integer")
+    except KeyboardInterrupt:
+        print("Server closed")
 
 
 

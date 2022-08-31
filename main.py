@@ -1,15 +1,18 @@
 import socket
-from PySide2.QtCore import QThreadPool
-from PySide2.QtWidgets import QApplication
-from project.client_socket.client import Client
-from project.GUI.gui import MainWindow
-from project.receive import ReceiveMessage
+from PySide2.QtCore import QThreadPool,Qt
+from PySide2.QtWidgets import QApplication, QLabel
+from client_socket.client import Client
+from GUI.gui import MainWindow
+from receive import ReceiveMessage
 
 
 class Main(MainWindow):
     def __init__(self):
         super().__init__()
         self.threadpool = QThreadPool()
+
+    def closeEvent(self, event) -> None:
+        self.connect_btn_clicked(False)
 
     def connect_btn_clicked(self,check):
         if check:
@@ -42,7 +45,13 @@ class Main(MainWindow):
             del self.client
 
     def send_btn_clicked(self):
-        self.client.send(self.mess.text())
+        mess = self.mess.text()
+        lab = QLabel(mess)
+        lab.setFont(self.font)
+        lab.setAlignment(Qt.AlignBottom | Qt.AlignRight)
+        self.mess_layout.addWidget(lab)
+
+        self.client.send(mess)
         self.mess.clear()
 
 
