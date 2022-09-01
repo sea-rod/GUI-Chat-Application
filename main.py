@@ -12,7 +12,8 @@ class Main(MainWindow):
         self.threadpool = QThreadPool()
 
     def closeEvent(self, event) -> None:
-        self.connect_btn_clicked(False)
+        if self.connect_btn.text() == "Disconnect":
+            self.connect_btn_clicked(False)
 
     def connect_btn_clicked(self,check):
         if check:
@@ -45,15 +46,16 @@ class Main(MainWindow):
             del self.client
 
     def send_btn_clicked(self):
-        mess = self.mess.text()
-        lab = QLabel(mess)
-        lab.setFont(self.font)
-        lab.setStyleSheet("background:transparent")
-        lab.setAlignment(Qt.AlignBottom | Qt.AlignRight)
-        self.mess_layout.addWidget(lab)
+        if self.connect_btn.text() == "Disconnect":
+            mess = self.mess.text()
+            lab = QLabel(mess)
+            lab.setFont(self.font)
+            lab.setStyleSheet("background:transparent")
+            lab.setAlignment(Qt.AlignBottom | Qt.AlignRight)
+            self.mess_layout.addWidget(lab)
 
-        self.client.send(mess)
-        self.mess.clear()
+            self.client.send(mess)
+            self.mess.clear()
 
 
 
