@@ -1,16 +1,16 @@
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QFont,QPalette,QColor
-from PySide2.QtWidgets import QGroupBox,QMainWindow,QApplication,QPushButton,QLabel,QLineEdit,QHBoxLayout,QVBoxLayout,QWidget, QListView,QScrollArea
+from PySide2.QtGui import QFont
+from PySide2.QtWidgets import QGroupBox,QMainWindow,QApplication,QPushButton,QLabel,QLineEdit,QHBoxLayout,QVBoxLayout,QWidget,QScrollArea
 
 
 class MainWindow (QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Chat Application")
-        self.resize(500,300)
+        self.resize(600,300)
 
         self.font = QFont()
-        self.font.setPointSize(17)
+        self.font.setPointSize(15)
         self.setFont(self.font)
         self.main_layout = QVBoxLayout()
 
@@ -40,7 +40,6 @@ class MainWindow (QMainWindow):
         port_label.setContentsMargins(10,0,10,0)
         port_label.setStyleSheet(self.sty)
         port_label.setFont(self.font)
-        port_label.resize(40,10)
 
         self.port = QLineEdit()
         
