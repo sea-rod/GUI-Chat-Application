@@ -19,7 +19,7 @@ class MainWindow (QMainWindow):
 
         self.create_top_layout()
 
-        self.layout_1()
+        self.mess_layout()
        
         self.create_bottom_layout()
         
@@ -89,7 +89,7 @@ class MainWindow (QMainWindow):
         
 
        
-    def layout_1(self):
+    def mess_layout(self):
         self.mess_layout = QVBoxLayout()
 
         grp = QGroupBox()
@@ -105,6 +105,7 @@ class MainWindow (QMainWindow):
     def print_mess(self,mess):
         lab = QLabel(mess)
         lab.setFont(self.font)
+        lab.setStyleSheet("background:transparent")
         lab.setAlignment(Qt.AlignBottom)
         self.mess_layout.addWidget(lab)
 

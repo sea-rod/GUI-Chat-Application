@@ -48,6 +48,7 @@ class Main(MainWindow):
         mess = self.mess.text()
         lab = QLabel(mess)
         lab.setFont(self.font)
+        lab.setStyleSheet("background:transparent")
         lab.setAlignment(Qt.AlignBottom | Qt.AlignRight)
         self.mess_layout.addWidget(lab)
 
