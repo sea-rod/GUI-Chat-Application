@@ -1,3 +1,4 @@
+from GUI.qss import style
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QFont
 from PySide2.QtWidgets import QGroupBox,QMainWindow,QApplication,QPushButton,QLabel,QLineEdit,QHBoxLayout,QVBoxLayout,QWidget,QScrollArea
@@ -29,9 +30,7 @@ class MainWindow (QMainWindow):
         self.setCentralWidget(wid)
 
 
-        self.setStyleSheet('''background: qlineargradient(x1:0, y1:0, x2:2, y2:1,
-                              stop:0.2 rgb(21, 30, 63), stop: 0.4 rgb(0, 0, 17), stop:1 rgb(99, 112, 116));
-                              color:rgb(225, 228, 255)''')      
+        self.setStyleSheet(style)      
        
 
 
