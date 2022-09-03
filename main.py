@@ -7,12 +7,13 @@ from receive import ReceiveMessage
 
 
 class Main(MainWindow):
+    client = None
     def __init__(self):
         super().__init__()
         self.threadpool = QThreadPool()
 
     def closeEvent(self, event) -> None:
-        if self.connect_btn.text() == "Disconnect":
+        if self.client:
             self.connect_btn_clicked(False)
 
     def connect_btn_clicked(self,check):
@@ -40,13 +41,14 @@ class Main(MainWindow):
 
         else:
             self.connect_btn.setText("Connect")
-            self.client.send("xxxclosedxxx")
-            self.client._flag = False
-            self.client.close()
-            del self.client
+            if self.client:
+                self.client.send("xxxclosedxxx")
+                self.client._flag = False
+                self.client.close()
+                del self.client
 
     def send_btn_clicked(self):
-        if self.connect_btn.text() == "Disconnect":
+        if self.client:
             mess = self.mess.text()
             lab = QLabel(mess)
             lab.setFont(self.font)
