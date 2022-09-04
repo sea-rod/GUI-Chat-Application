@@ -31,7 +31,7 @@ class Server:
         while True:
             conn ,addr = self.__server.accept()
             print(f"{addr} connected....")
-            conn.send(("                  16Enter your name:").encode())
+            conn.send(("                  15Enter your name").encode())
             try:
                 name = conn.recv(self.__mess_size).decode()
                 self.__client_soc[conn] = name[self.__head:]
