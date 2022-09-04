@@ -1,10 +1,12 @@
+from unicodedata import name
 from GUI.qss import style
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QFont
-from PySide2.QtWidgets import QGroupBox,QMainWindow,QApplication,QPushButton,QLabel,QLineEdit,QHBoxLayout,QVBoxLayout,QWidget,QScrollArea
+from PySide2.QtWidgets import QGridLayout, QGroupBox,QMainWindow,QApplication,QPushButton,QLabel,QLineEdit,QHBoxLayout,QVBoxLayout,QWidget,QScrollArea,QInputDialog
 
 
 class MainWindow (QMainWindow):
+    rw = 0
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Chat Application")
@@ -15,8 +17,6 @@ class MainWindow (QMainWindow):
         self.setFont(self.font)
         self.main_layout = QVBoxLayout()
 
-        self.sty = '''background:qlineargradient(x1:0, y1:0, x2:2, y2:1,stop:0.1 #CBD4C2, stop: 1 #637074,stop:1 rgb(0, 0, 17));
-                      color:rgb(0, 0, 17);'''
 
         self.create_top_layout()
 
@@ -37,14 +37,12 @@ class MainWindow (QMainWindow):
     def create_top_layout(self):
         port_label = QLabel("Port:")
         port_label.setContentsMargins(10,0,10,0)
-        port_label.setStyleSheet(self.sty)
         port_label.setFont(self.font)
 
         self.port = QLineEdit()
         
 
         host_label = QLabel("Host:")
-        host_label.setStyleSheet(self.sty)
         host_label.setContentsMargins(10,0,10,0)
         host_label.setFont(self.font)
         self.host = QLineEdit()
@@ -52,10 +50,8 @@ class MainWindow (QMainWindow):
         self.connect_btn = QPushButton("Connect")
         self.connect_btn.setFixedSize(140,35)
         self.connect_btn.setCheckable(True)
-        self.connect_btn.setStyleSheet(self.sty)
         self.connect_btn.setFont(self.font)
         self.connect_btn.clicked.connect(self.connect_btn_clicked)
-
 
 
         top_layout = QHBoxLayout()
@@ -77,7 +73,6 @@ class MainWindow (QMainWindow):
         
         send_btn = QPushButton("Send")
         send_btn.clicked.connect(self.send_btn_clicked)
-        send_btn.setStyleSheet(self.sty)
         send_btn.setFont(self.font)
 
         bottom_layout = QHBoxLayout()
@@ -88,8 +83,7 @@ class MainWindow (QMainWindow):
 
        
     def mess_layout(self):
-        self.mess_layout = QVBoxLayout()
-
+        self.mess_layout = QGridLayout()
         grp = QGroupBox()
         grp.setLayout(self.mess_layout)
         grp.setAlignment(Qt.AlignCenter)
@@ -101,11 +95,18 @@ class MainWindow (QMainWindow):
 
 
     def print_mess(self,mess):
-        lab = QLabel(mess)
-        lab.setFont(self.font)
-        lab.setStyleSheet("background:transparent")
-        lab.setAlignment(Qt.AlignBottom)
-        self.mess_layout.addWidget(lab)
+        if mess == "Enter your name":
+            while True:
+                name, ok = QInputDialog.getText(self,"Text Input",mess)
+                if ok and name:
+                    self.client.send(name)
+                    break
+        else:
+            lab = QLabel(mess)
+            lab.setFont(self.font)
+            lab.setAlignment(Qt.AlignBottom)
+            self.mess_layout.addWidget(lab,self.rw,0)
+            self.rw += 1
 
     def connect_btn_clicked(self,check):...
 
