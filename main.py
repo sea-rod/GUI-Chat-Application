@@ -7,17 +7,28 @@ from receive import ReceiveMessage
 
 
 class Main(MainWindow):
-    client = None
+    '''
+    Intialiezes the GUI part of the main window and connects the buttons to 
+    their functions
+    '''
+    client:socket = None
     def __init__(self):
         super().__init__()
         self.threadpool = QThreadPool()
 
     def closeEvent(self, event) -> None:
+        '''
+        Overides the closeEvent of the PyQt module that is called when the    
+        application is closed
+        '''
         if self.client:
             self.connect_btn_clicked(False)
 
 
     def connect_btn_clicked(self,check):
+        '''
+        This is the callback function of the connect button
+        '''
         if check:
             try:
                 self.connect_btn.setText("Disconnect")
@@ -73,6 +84,9 @@ class Main(MainWindow):
     
     
     def send_btn_clicked(self):
+        '''
+        This is the callback funciton of the send button
+        '''
         if self.client and self.mess.text():
             mess = self.mess.text()
             lab = QLabel(mess)

@@ -8,7 +8,7 @@ class Server:
 
     __client_soc = {}
 
-    def __init__(self, host = "127.0.0.1", port = 8080, mess_size = 1024*128, head = 20) -> None:
+    def __init__(self, host:str = "127.0.0.1", port:int = 8080, mess_size:int = 1024*128, head:int = 20) -> None:
         self.__host = host
         self.__port = port 
         self.__mess_size = mess_size

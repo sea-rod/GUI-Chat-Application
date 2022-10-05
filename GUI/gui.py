@@ -1,4 +1,3 @@
-from unicodedata import name
 from GUI.qss import style
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QFont
@@ -6,6 +5,9 @@ from PySide2.QtWidgets import QGridLayout, QGroupBox,QMainWindow,QApplication,QP
 
 
 class MainWindow (QMainWindow):
+    '''
+    Builds the GUI part of the chat application
+    '''
     rw = 0
     def __init__(self):
         super().__init__()
@@ -35,6 +37,9 @@ class MainWindow (QMainWindow):
 
 
     def create_top_layout(self):
+        '''
+        Creates the top layer of the chat appplication
+        '''
         port_label = QLabel("Port:")
         port_label.setContentsMargins(10,0,10,0)
         port_label.setFont(self.font)
@@ -67,6 +72,9 @@ class MainWindow (QMainWindow):
 
 
     def create_bottom_layout(self):
+        '''
+        Create the bottom layer of the application
+        '''
         self.mess = QLineEdit(self)
         self.mess.setClearButtonEnabled(True)
         self.mess.setPlaceholderText("Enter your Message here")
@@ -83,6 +91,9 @@ class MainWindow (QMainWindow):
 
        
     def mess_layout(self):
+        '''
+        Create the message layout of the chat application
+        '''
         self.mess_layout = QGridLayout()
         grp = QGroupBox()
         grp.setLayout(self.mess_layout)
@@ -95,6 +106,9 @@ class MainWindow (QMainWindow):
 
 
     def print_mess(self,mess):
+        '''
+        Creates a QInputDialog (Input box) to get the name of the user
+        '''
         if mess == "Enter your name":
             while True:
                 name, ok = QInputDialog.getText(self,"Text Input",mess)
@@ -109,6 +123,7 @@ class MainWindow (QMainWindow):
             self.rw += 1
 
     def connect_btn_clicked(self,check):...
+    
 
     
     def send_btn_clicked(self):...
