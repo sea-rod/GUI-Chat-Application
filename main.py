@@ -1,6 +1,6 @@
 import socket
 from PySide2.QtCore import QThreadPool,Qt
-from PySide2.QtWidgets import QApplication, QLabel, QMessageBox
+from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy,QFrame
 from client_socket.client import Client
 from GUI.gui import MainWindow
 from receive import ReceiveMessage
@@ -91,6 +91,9 @@ class Main(MainWindow):
             mess = self.mess.text()
             lab = QLabel(mess)
             lab.setFont(self.font)
+            lab.setMinimumHeight(30)
+            lab.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Maximum)
+            lab.setWordWrap(True)
             lab.setAlignment(Qt.AlignBottom | Qt.AlignRight)
             self.mess_layout.addWidget(lab,self.rw,1)
             self.rw += 1

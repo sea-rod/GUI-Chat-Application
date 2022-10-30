@@ -1,7 +1,7 @@
 from GUI.qss import style
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QFont
-from PySide2.QtWidgets import QGridLayout, QGroupBox,QMainWindow,QApplication,QPushButton,QLabel,QLineEdit,QHBoxLayout,QVBoxLayout,QWidget,QScrollArea,QInputDialog
+from PySide2.QtWidgets import QGridLayout, QGroupBox,QMainWindow,QApplication,QPushButton,QLabel,QLineEdit,QHBoxLayout,QVBoxLayout,QWidget,QScrollArea,QInputDialog,QSizePolicy
 
 
 class MainWindow (QMainWindow):
@@ -118,6 +118,9 @@ class MainWindow (QMainWindow):
         else:
             lab = QLabel(mess)
             lab.setFont(self.font)
+            lab.setMinimumHeight(30)
+            lab.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Maximum)
+            lab.setWordWrap(True)
             lab.setAlignment(Qt.AlignBottom)
             self.mess_layout.addWidget(lab,self.rw,0)
             self.rw += 1

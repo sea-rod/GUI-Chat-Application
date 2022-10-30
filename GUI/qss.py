@@ -30,7 +30,7 @@ QPushButton{
 QLabel{
     background:qlineargradient(x1:0, y1:0, x2:2, y2:1,stop:0.1 #CBD4C2, stop: 1 #637074,stop:1 rgb(0, 0, 17));
     color:rgb(0, 0, 17);
-    max-height:30px;
+    
     border-radius:10px;
 }
 QPushButton[text="Connect"]{
