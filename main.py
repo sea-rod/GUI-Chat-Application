@@ -1,3 +1,14 @@
+# BY: SEAMUS.F.RODRIGUES
+#
+# This project can be used freely for all uses, as long as they maintain the
+# respective credits only in the Python scripts.
+#
+# There are limitations on Qt licenses if you want to use your products
+# commercially, I recommend reading them on the official website:
+# https://doc.qt.io/qtforpython/licenses.html
+
+
+
 import socket
 from PySide2.QtCore import QThreadPool,Qt
 from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy,QFrame
