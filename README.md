@@ -1,5 +1,5 @@
 # 👋Introduction
-We all humans are social beings and we all feel the need to interact with each other.Here is a small GUI chat application that helps you chat with your friend
+We all humans are social beings and we all feel the need to interact with each other.Here is a small GUI chat application that helps you chat with your friend/family.
 
 # 🏃‍♂️How to run the chat apllication
 1. Clone the repository
@@ -34,12 +34,16 @@ python main.py
 ```
 7. Enter the port and the host's ip address and hit the `Connect` button
 <img src="./Screenshots/Screenshot_1.png"/>
+
 ## To find the host ip
-### If the sever is hosted on a linux machine then open the terminal and enter the command:
+
+### If the server is hosted on a linux machine then open the terminal and enter the command:
+
 ```bash
 ifconfig
 ```
 ### If the server is hosted on a windows machine then open the cmd and enter the command:
+
 ```bash
 ipconfig
 ```
@@ -47,7 +51,7 @@ ipconfig
 8. Enter your name and hit the `ok` button
 <img src="./Screenshots/Screenshot_2.png"/>
 
-9. Thats all your good to go enjoy the app 💖!!
+9. Thats all your good to go. Enjoy the app 💖!!
 <img src="./Screenshots/Screenshot_3.png"/>
 
 # 🔨Built with
