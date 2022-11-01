@@ -12,6 +12,8 @@
 import socket
 from PySide2.QtCore import QThreadPool,Qt
 from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy,QFrame
+from PySide2.QtGui import QIcon
+import res
 from client_socket.client import Client
 from GUI.gui import MainWindow
 from receive import ReceiveMessage
@@ -116,9 +118,8 @@ class Main(MainWindow):
         self.connect_btn.setText("Connect")
         self.connect_btn.setChecked(False)
 
-
 app = QApplication([])
-
+app.setWindowIcon(QIcon(":/icons/main_icon"))
 window = Main()
 window.show()
 app.exec_()
