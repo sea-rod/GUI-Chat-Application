@@ -11,15 +11,16 @@
 
 import socket
 from PySide2.QtCore import QThreadPool,Qt
-from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy,QFrame
+from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy,QMainWindow
 from PySide2.QtGui import QIcon
 import res
+from PySide2.QtUiTools import QUiLoader
 from client_socket.client import Client
 from GUI.gui import MainWindow
 from receive import ReceiveMessage
 
-
-class Main(MainWindow):
+loader = QUiLoader()
+class Main(QMainWindow):
     '''
     Intialiezes the GUI part of the main window and connects the buttons to 
     their functions
@@ -27,6 +28,11 @@ class Main(MainWindow):
     client:socket = None
     def __init__(self):
         super().__init__()
+        self.ui = loader.load('./res/untitled.ui',None)
+        self.ui.show()
+
+        self.ui.client_btn.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.client))
+        self.ui.server_btn.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.server))
         self.threadpool = QThreadPool()
 
     def closeEvent(self, event) -> None:
@@ -121,5 +127,4 @@ class Main(MainWindow):
 app = QApplication([])
 app.setWindowIcon(QIcon(":/icons/main_icon"))
 window = Main()
-window.show()
 app.exec_()
