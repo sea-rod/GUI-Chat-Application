@@ -1,5 +1,8 @@
 <RCC>
-    <qresource prefix="icons">
-        <file alias="main_icon">128x128.png</file>
-    </qresource>
+  <qresource prefix="icons">
+    <file alias="create">icons/add-button.png</file>
+    <file alias="connect">icons/connect.png</file>
+    <file alias="menu">icons/menu.png</file>
+    <file alias="main">128x126.png</file>
+  </qresource>
 </RCC>

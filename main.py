@@ -10,13 +10,12 @@
 
 
 import socket
-from PySide2.QtCore import QThreadPool,Qt
+from PySide2.QtCore import QThreadPool,Qt,QPropertyAnimation
 from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy,QMainWindow
 from PySide2.QtGui import QIcon
-import res
+import res.res
 from PySide2.QtUiTools import QUiLoader
 from client_socket.client import Client
-from GUI.gui import MainWindow
 from receive import ReceiveMessage
 
 loader = QUiLoader()
@@ -33,7 +32,34 @@ class Main(QMainWindow):
 
         self.ui.client_btn.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.client))
         self.ui.server_btn.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.server))
+        self.ui.menu_btn.clicked.connect(self.menu)
         self.threadpool = QThreadPool()
+        
+    def menu(self,chk):
+        print(chk)
+        if chk:
+            self.animation = QPropertyAnimation(self.ui.side_main,b"minimumWidth")
+            self.animation.setDuration(500)
+            self.animation.setStartValue(100)
+            self.animation.setEndValue(200)
+            self.animation.start()
+            self.ui.menu_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+            self.ui.server_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+            self.ui.client_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+            
+            
+        else:
+            self.animation = QPropertyAnimation(self.ui.side_main,b"minimumWidth")
+            self.animation.setDuration(500)
+            self.animation.setStartValue(200)
+            self.animation.setEndValue(100)
+            self.animation.start()
+
+            self.ui.menu_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
+            self.ui.server_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
+            self.ui.client_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
+            
+
 
     def closeEvent(self, event) -> None:
         '''
