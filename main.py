@@ -10,54 +10,30 @@
 
 
 import socket
-from PySide2.QtCore import QThreadPool,Qt,QPropertyAnimation
-from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy,QMainWindow
+from PySide2.QtCore import QThreadPool,Qt
+from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy
 from PySide2.QtGui import QIcon
 import res.res
-from PySide2.QtUiTools import QUiLoader
+from GUI import intergui
+from GUI.getname_interface import NameWind
 from client_socket.client import Client
+from create_server import Create_Server 
 from receive import ReceiveMessage
 
-loader = QUiLoader()
-class Main(QMainWindow):
+class Main(intergui.intergui):
     '''
     Intialiezes the GUI part of the main window and connects the buttons to 
     their functions
     '''
     client:socket = None
+    srv:socket = None
     def __init__(self):
         super().__init__()
-        self.ui = loader.load('./res/untitled.ui',None)
-        self.ui.show()
-
-        self.ui.client_btn.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.client))
-        self.ui.server_btn.clicked.connect(lambda:self.ui.stackedWidget.setCurrentWidget(self.ui.server))
-        self.ui.menu_btn.clicked.connect(self.menu)
+        self.setWindowTitle("Chat Application")
         self.threadpool = QThreadPool()
         
-    def menu(self,chk):
-        print(chk)
-        if chk:
-            self.animation = QPropertyAnimation(self.ui.side_main,b"minimumWidth")
-            self.animation.setDuration(500)
-            self.animation.setStartValue(100)
-            self.animation.setEndValue(200)
-            self.animation.start()
-            self.ui.menu_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-            self.ui.server_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-            self.ui.client_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-            
-            
-        else:
-            self.animation = QPropertyAnimation(self.ui.side_main,b"minimumWidth")
-            self.animation.setDuration(500)
-            self.animation.setStartValue(200)
-            self.animation.setEndValue(100)
-            self.animation.start()
-
-            self.ui.menu_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
-            self.ui.server_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
-            self.ui.client_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
+        
+    
             
 
 
@@ -68,6 +44,8 @@ class Main(QMainWindow):
         '''
         if self.client:
             self.connect_btn_clicked(False)
+        if self.srv:
+            self.srv.srv.terminate()
 
 
     def connect_btn_clicked(self,check):
@@ -77,12 +55,17 @@ class Main(QMainWindow):
         if check:
             try:
                 self.connect_btn.setText("Disconnect")
-                host = self.host.text()
-                port = int(self.port.text())
+                host = self.host_id.text()
+                port = int(self.port_id.text())
                 host = socket.gethostbyname(host)
     
                 self.client = Client(host,port)
                 if self.client.connect():
+                    self.namewid = NameWind()
+                    self.namewid.closeEvent = self.get_name 
+                    self.namewid.show()
+                                       
+                    
                     print("Connection Sucessful")
                     self.worker = ReceiveMessage(self.client)
                     self.worker.signal.result.connect(self.print_mess)
@@ -122,11 +105,14 @@ class Main(QMainWindow):
         else:
             if self.client:
                 self.client.send("xxxclosedxxx")
-                self.client._flag = False
-                self.client.close()
                 del self.client
                 self.error_occur()
     
+    def get_name(self,e):
+        self.name = self.namewid.name.text()
+        self.client.send(self.name)
+
+        
     
     def send_btn_clicked(self):
         '''
@@ -146,6 +132,33 @@ class Main(QMainWindow):
             self.mess.clear()
 
 
+    def start_btn_clicked(self):
+        self.srv = Create_Server()
+        import socket
+        self.threadpool.start(self.srv)
+        host = socket.gethostbyname(socket.gethostname())
+        port = self.srv.srv.get_port()
+        self.hst_prt.setText(f"server started on {host}:{port}")
+        self.host_id.setText(host)
+        self.port_id.setText(str(port))
+        self.connect_btn_clicked(True)
+
+    def print_mess(self,mess):
+        try:
+            if mess == "xxxclosedxxx":
+                raise Exception("User Exist")
+            print(mess)
+        except Exception as e:
+            self.error_occur()
+            self.client = None
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("ERROR")
+            msg.setInformativeText(str(e))
+            msg.setWindowTitle("Error")
+            msg.exec_()
+
+
     def error_occur(self):
         self.connect_btn.setText("Connect")
         self.connect_btn.setChecked(False)
@@ -153,4 +166,5 @@ class Main(QMainWindow):
 app = QApplication([])
 app.setWindowIcon(QIcon(":/icons/main_icon"))
 window = Main()
+window.show()
 app.exec_()

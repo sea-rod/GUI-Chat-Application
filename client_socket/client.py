@@ -33,6 +33,8 @@ class Client:
         '''
         mess = ''
         raw_mess = self.__client.recv(self.mess_size).decode()
+        if not raw_mess:
+            return raw_mess
         mess_len = int(raw_mess[:self.head])
         mess += str(raw_mess[self.head:])
         while len(mess) != mess_len:

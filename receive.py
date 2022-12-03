@@ -21,10 +21,14 @@ class ReceiveMessage(QRunnable):
     @Slot()
     def run(self) -> None:
         try:
-            while self.client._flag:
+            while True:
                 mess = self.client.receive()
+                if not mess:
+                    break
                 self.signal.result.emit(mess)
 
+            self.client.close()
+
         except Exception as E:
-            self.signal.result.emit("Connection Closed")
+            self.signal.result.emit("Connection Closed"+str(E))
 
