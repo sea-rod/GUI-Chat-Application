@@ -29,6 +29,9 @@ class ReceiveMessage(QRunnable):
 
             self.client.close()
 
+        except ConnectionResetError:
+            print("Host went Down")
+
         except Exception as E:
             self.signal.result.emit("Connection Closed"+str(E))
 

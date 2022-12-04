@@ -63,8 +63,7 @@ class Ui_MainWindow(object):
 "background:rgb(86, 0, 42);\n"
 "border-radius:10;\n"
 "color:rgb(209, 209, 209)\n"
-"}\n"
-"")
+"}")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
@@ -318,6 +317,8 @@ class Ui_MainWindow(object):
         self.scrollArea.setStyleSheet(u"background:transparent;\n"
 "border:0;\n"
 "")
+        self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.scrollArea.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.scrollArea.setWidgetResizable(True)
         self.message_area = QWidget()
         self.message_area.setObjectName(u"message_area")
@@ -332,6 +333,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setContentsMargins(0, -1, 0, 0)
         self.recv_mess_area = QWidget(self.message_area)
         self.recv_mess_area.setObjectName(u"recv_mess_area")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy6.setHorizontalStretch(1)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.recv_mess_area.sizePolicy().hasHeightForWidth())
+        self.recv_mess_area.setSizePolicy(sizePolicy6)
         self.recv_mess_area.setStyleSheet(u"background:transparent;\n"
 "border:0")
         self.verticalLayout_4 = QVBoxLayout(self.recv_mess_area)
@@ -341,10 +347,13 @@ class Ui_MainWindow(object):
 
         self.send_mess_area = QWidget(self.message_area)
         self.send_mess_area.setObjectName(u"send_mess_area")
+        sizePolicy6.setHeightForWidth(self.send_mess_area.sizePolicy().hasHeightForWidth())
+        self.send_mess_area.setSizePolicy(sizePolicy6)
         self.send_mess_area.setStyleSheet(u"background:transparent;\n"
 "border:0")
         self.verticalLayout_5 = QVBoxLayout(self.send_mess_area)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setSizeConstraint(QLayout.SetMinimumSize)
 
         self.horizontalLayout_5.addWidget(self.send_mess_area)
 
@@ -356,11 +365,11 @@ class Ui_MainWindow(object):
 
         self.main_foot = QWidget(self.main)
         self.main_foot.setObjectName(u"main_foot")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.main_foot.sizePolicy().hasHeightForWidth())
-        self.main_foot.setSizePolicy(sizePolicy6)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.main_foot.sizePolicy().hasHeightForWidth())
+        self.main_foot.setSizePolicy(sizePolicy7)
         self.main_foot.setStyleSheet(u"QTextEdit{\n"
 "border-radius:20;\n"
 "}")
@@ -368,25 +377,27 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setSpacing(5)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.sendmess_ld = QLineEdit(self.main_foot)
-        self.sendmess_ld.setObjectName(u"sendmess_ld")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy7.setHorizontalStretch(8)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.sendmess_ld.sizePolicy().hasHeightForWidth())
-        self.sendmess_ld.setSizePolicy(sizePolicy7)
-        self.sendmess_ld.setMinimumSize(QSize(40, 30))
-        self.sendmess_ld.setFont(font)
+        self.sendMessId = QLineEdit(self.main_foot)
+        self.sendMessId.setObjectName(u"sendMessId")
+        sizePolicy8 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy8.setHorizontalStretch(6)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.sendMessId.sizePolicy().hasHeightForWidth())
+        self.sendMessId.setSizePolicy(sizePolicy8)
+        self.sendMessId.setMinimumSize(QSize(0, 30))
+        self.sendMessId.setFont(font2)
+        self.sendMessId.setEchoMode(QLineEdit.Normal)
+        self.sendMessId.setCursorPosition(0)
 
-        self.horizontalLayout_3.addWidget(self.sendmess_ld)
+        self.horizontalLayout_3.addWidget(self.sendMessId)
 
         self.send_btn = QPushButton(self.main_foot)
         self.send_btn.setObjectName(u"send_btn")
-        sizePolicy8 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
-        sizePolicy8.setHorizontalStretch(1)
-        sizePolicy8.setVerticalStretch(0)
-        sizePolicy8.setHeightForWidth(self.send_btn.sizePolicy().hasHeightForWidth())
-        self.send_btn.setSizePolicy(sizePolicy8)
+        sizePolicy9 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Maximum)
+        sizePolicy9.setHorizontalStretch(1)
+        sizePolicy9.setVerticalStretch(0)
+        sizePolicy9.setHeightForWidth(self.send_btn.sizePolicy().hasHeightForWidth())
+        self.send_btn.setSizePolicy(sizePolicy9)
         self.send_btn.setMinimumSize(QSize(20, 30))
         self.send_btn.setFont(font)
 
@@ -420,7 +431,7 @@ class Ui_MainWindow(object):
         self.hst_prt.setText(QCoreApplication.translate("MainWindow", u"serevr started on host:port", None))
         self.hst_prt.setPlaceholderText("")
         self.start_btn.setText(QCoreApplication.translate("MainWindow", u"Start", None))
-        self.sendmess_ld.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Enter Message Here", None))
+        self.sendMessId.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Message", None))
         self.send_btn.setText(QCoreApplication.translate("MainWindow", u"Send", None))
     # retranslateUi
 

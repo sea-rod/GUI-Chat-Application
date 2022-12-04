@@ -11,7 +11,7 @@
 
 import socket
 from PySide2.QtCore import QThreadPool,Qt
-from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy
+from PySide2.QtWidgets import QApplication, QLabel, QMessageBox,QSizePolicy,QVBoxLayout
 from PySide2.QtGui import QIcon
 import res.res
 from GUI import intergui
@@ -43,9 +43,10 @@ class Main(intergui.intergui):
         application is closed
         '''
         if self.client:
-            self.connect_btn_clicked(False)
+            self.client.send("xxxclosedxxx")
         if self.srv:
             self.srv.srv.terminate()
+        
 
 
     def connect_btn_clicked(self,check):
@@ -100,8 +101,6 @@ class Main(intergui.intergui):
                 msg.setWindowTitle("Error")
                 msg.exec_()
 
-
-
         else:
             if self.client:
                 self.client.send("xxxclosedxxx")
@@ -118,18 +117,24 @@ class Main(intergui.intergui):
         '''
         This is the callback funciton of the send button
         '''
-        if self.client and self.mess.text():
-            mess = self.mess.text()
-            lab = QLabel(mess)
-            lab.setFont(self.font)
+        if self.client and self.sendMessId.text():
+            mess = self.sendMessId.text()
+            print(mess)
+            lab = QLabel(mess,self.send_mess_area)
+            lab.setFont(self.host_id.font())
             lab.setMinimumHeight(30)
-            lab.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Maximum)
-            lab.setWordWrap(True)
-            lab.setAlignment(Qt.AlignBottom | Qt.AlignRight)
-            self.mess_layout.addWidget(lab,self.rw,1)
-            self.rw += 1
-            self.client.send(mess)
-            self.mess.clear()
+            lab.setStyleSheet('''QLabel{
+background:rgb(58, 58, 58);
+color:rgb(170, 170, 170);
+border-radius:10;
+padding:5;
+}''')
+            # lab.setMaximumWidth(294)
+            lab.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.MinimumExpanding)
+            # lab.setWordWrap(True)
+            self.verticalLayout_5.addWidget(lab,0,Qt.AlignBottom|Qt.AlignRight)
+            lab.adjustSize()
+            self.sendMessId.clear()
 
 
     def start_btn_clicked(self):
