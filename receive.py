@@ -4,7 +4,7 @@ from client_socket.client import Client
 
 class WorkerSignal(QObject):
     result = Signal(str)
-    finished = Signal()
+    error = Signal(str)
 
 
 class ReceiveMessage(QRunnable):
@@ -25,13 +25,15 @@ class ReceiveMessage(QRunnable):
                 mess = self.client.receive()
                 if not mess:
                     break
+                if mess == "xxxclosedxxx":
+                    self.signal.error.emit(mess)
+                if mess == "xxxuserExistxxx":
+                    raise Exception("User exists")
                 self.signal.result.emit(mess)
 
-            self.client.close()
-
         except ConnectionResetError:
-            print("Host went Down")
+            self.signal.error.emit("Server shut Down")
 
         except Exception as E:
-            self.signal.result.emit("Connection Closed"+str(E))
+            self.signal.error.emit("Connection Closed\n"+str(E))
 

@@ -14,7 +14,7 @@ class intergui(QMainWindow,Ui_MainWindow):
         self.send_btn.clicked.connect(self.send_btn_clicked)
         self.connect_btn.clicked.connect(self.connect_btn_clicked)
         self.start_btn.clicked.connect(self.start_btn_clicked)
-        self.exit_btn.clicked.connect(exit)
+        self.exit_btn.clicked.connect(self.close)
 
    
 

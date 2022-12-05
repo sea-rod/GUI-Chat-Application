@@ -447,7 +447,7 @@ class Ui_MainWindow(object):
         self.join_btn.setText(QCoreApplication.translate("MainWindow", u"     Join", None))
         self.exit_btn.setText(QCoreApplication.translate("MainWindow", u"    Exit", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Port", None))
-        self.port_id.setText("")
+        self.port_id.setText(QCoreApplication.translate("MainWindow", u"8080", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Host", None))
         self.connect_btn.setText(QCoreApplication.translate("MainWindow", u"Connect", None))
         self.hst_prt.setText(QCoreApplication.translate("MainWindow", u"serevr started on host:port", None))

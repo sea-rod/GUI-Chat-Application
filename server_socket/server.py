@@ -1,6 +1,5 @@
 import socket 
 import threading
-
 class Server:
     '''
     This is the server side code
@@ -13,7 +12,8 @@ class Server:
         self.__port = port 
         self.__mess_size = mess_size
         self.__head = head
-    
+
+
     def listen(self):
         '''
         It starts listening for clients
@@ -23,13 +23,14 @@ class Server:
         print(f"sever listening on {self.__host}:{self.__port}")
         print("press Clrl+c to exit..")
         self.__server.listen(5)
-    
+
+
     def accept(self):
         '''
         It accepts connection from the clients
         '''
         try:
-            while self.__server:
+            while True:
                 conn ,addr = self.__server.accept()
                 print(f"{addr} connected....")
                 try:
@@ -42,7 +43,7 @@ class Server:
                         self.t1=threading.Thread(target = self.receive,args=(name,))
                         self.t1.start()
                     else:
-                        mess = "xxxclosedxxx"
+                        mess = "xxxuserExistxxx"
                         mess = f"{len(mess):{self.__head}}{mess}".encode()
                         conn.send(mess)
                     
@@ -80,14 +81,10 @@ class Server:
 
                 self.__send(mess_len,conn)
 
+
         except Exception as e: 
-            conn.close() 
-            del self.__client_soc[name]
-            # print(e)
+            conn.close()
             
-
-
-    
 
     def __send(self,mess:str,conn:socket):
         '''
@@ -102,13 +99,17 @@ class Server:
 
     def terminate(self):
         self.__server.close()
-
+        for conn in self.__client_soc.values():
+             conn.close()
+       
 
     def get_port(self):
         return self.__port
 
+
     def user_exit(self,key):
         return key in self.__client_soc.keys()
+
 
 if __name__ == "__main__":
     try:

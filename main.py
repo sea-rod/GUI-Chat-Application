@@ -42,11 +42,10 @@ class Main(intergui.intergui):
         Overides the closeEvent of the PyQt module that is called when the    
         application is closed
         '''
-        if self.client:
-            self.client.send("xxxclosedxxx")
         if self.srv:
             self.srv.srv.terminate()
-        
+        elif self.client:
+            self.client.send("xxxclosedxxx")
 
 
     def connect_btn_clicked(self,check):
@@ -69,44 +68,29 @@ class Main(intergui.intergui):
                     
                     print("Connection Sucessful")
                     self.worker = ReceiveMessage(self.client)
+                    self.worker.signal.error.connect(self.error_occur)
                     self.worker.signal.result.connect(self.print_mess)
                     self.threadpool.start(self.worker)
                 else:
-                    raise Exception("Host should not be empty")
+                    raise Exception("Enter a Valid Host")
             
             except ValueError:
-                self.error_occur()
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Critical)
-                msg.setText("ERROR")
-                msg.setInformativeText("Port number should be a integer")
-                msg.setWindowTitle("Error")
-                msg.exec_()
+                self.error_occur("Port number should be a integer")
 
             except socket.gaierror:
-                self.error_occur()
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Critical)
-                msg.setText("ERROR")
-                msg.setInformativeText("Please a enter a valid ip or host name and try again")
-                msg.setWindowTitle("Error")
-                msg.exec_()
+                self.error_occur("Please a enter a valid ip or host name and try again")
+                
             except Exception as e:
-                self.error_occur()
+                self.error_occur(str(e))
                 self.client = None
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Critical)
-                msg.setText("ERROR")
-                msg.setInformativeText(str(e))
-                msg.setWindowTitle("Error")
-                msg.exec_()
-
         else:
             if self.client:
                 self.client.send("xxxclosedxxx")
                 del self.client
-                self.error_occur()
+                self.connect_btn.setText("Connect")
+                self.connect_btn.setChecked(False)
     
+
     def get_name(self,e):
         self.name = self.namewid.name.text()
         self.client.send(self.name)
@@ -117,24 +101,29 @@ class Main(intergui.intergui):
         '''
         This is the callback funciton of the send button
         '''
-        if self.client and self.sendMessId.text():
-            mess = self.sendMessId.text()
-            self.client.send(mess)
-            print(mess)
-            lab = QLabel(mess,self.send_mess_area)
-            lab.setFont(self.host_id.font())
-            lab.setMinimumHeight(30)
-            lab.setStyleSheet('''QLabel{
-background:rgb(58, 58, 58);
-color:rgb(170, 170, 170);
-border-radius:10;
-padding:5;
-}''')
-            lab.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.MinimumExpanding)
-            lab.setWordWrap(True)
-            self.verticalLayout_5.addWidget(lab,0,Qt.AlignBottom|Qt.AlignRight)
-            lab.adjustSize()
-            self.sendMessId.clear()
+        try:
+            if self.client and self.sendMessId.text():
+                mess = self.sendMessId.text()
+                if mess == "xxxclosedxxx":
+                    raise Exception("You cannot send that message try using spaces")
+                self.client.send(mess)
+                lab = QLabel(mess,self.send_mess_area)
+                lab.setFont(self.host_id.font())
+                lab.setMinimumHeight(30)
+                lab.setStyleSheet('''QLabel{
+                                     background:rgb(58, 58, 58);
+                                     color:rgb(170, 170, 170);
+                                     border-radius:10;
+                                     padding:5;
+                                     }''')
+                lab.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.MinimumExpanding)
+                lab.setWordWrap(True)
+                self.verticalLayout_5.addWidget(lab,0,Qt.AlignBottom|Qt.AlignRight)
+                lab.adjustSize()
+                self.sendMessId.clear()
+
+        except Exception as e:
+            self.error_occur(str(e))
 
 
     def start_btn_clicked(self,chk):
@@ -154,9 +143,6 @@ padding:5;
 
     def print_mess(self,mess):
         try:
-            if mess == "xxxclosedxxx":
-                raise Exception("User Exist")
-            print(mess)
             lab = QLabel(mess,self.send_mess_area)
             lab.setFont(self.host_id.font())
             lab.setMinimumHeight(30)
@@ -181,9 +167,15 @@ padding:5;
             msg.exec_()
 
 
-    def error_occur(self):
+    def error_occur(self,mess:str):
         self.connect_btn.setText("Connect")
         self.connect_btn.setChecked(False)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+        msg.setText("ERROR")
+        msg.setInformativeText(mess)
+        msg.setWindowTitle("Error")
+        msg.exec_()
 
 app = QApplication([])
 app.setWindowIcon(QIcon(":/icons/main_icon"))

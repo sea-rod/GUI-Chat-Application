@@ -518,7 +518,7 @@ background-color:rgb(63, 2, 24);
                  </font>
                 </property>
                 <property name="text">
-                 <string/>
+                 <string>8080</string>
                 </property>
                </widget>
               </item>
