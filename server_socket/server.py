@@ -101,8 +101,6 @@ class Server:
 
 
     def terminate(self):
-        for soc in self.__client_soc.values():
-            soc.close()
         self.__server.close()
 
 

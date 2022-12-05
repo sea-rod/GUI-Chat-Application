@@ -302,6 +302,7 @@ class Ui_MainWindow(object):
         self.start_btn.setSizePolicy(sizePolicy5)
         self.start_btn.setMinimumSize(QSize(20, 30))
         self.start_btn.setFont(font1)
+        self.start_btn.setCheckable(True)
 
         self.horizontalLayout_6.addWidget(self.start_btn)
 

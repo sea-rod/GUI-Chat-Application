@@ -623,6 +623,9 @@ border-radius:10;
                 <property name="text">
                  <string>Start</string>
                 </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
              </layout>

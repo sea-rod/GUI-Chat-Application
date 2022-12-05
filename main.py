@@ -129,24 +129,27 @@ color:rgb(170, 170, 170);
 border-radius:10;
 padding:5;
 }''')
-            # lab.setMaximumWidth(294)
             lab.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.MinimumExpanding)
-            # lab.setWordWrap(True)
+            lab.setWordWrap(True)
             self.verticalLayout_5.addWidget(lab,0,Qt.AlignBottom|Qt.AlignRight)
             lab.adjustSize()
             self.sendMessId.clear()
 
 
-    def start_btn_clicked(self):
-        self.srv = Create_Server()
-        import socket
-        self.threadpool.start(self.srv)
-        host = socket.gethostbyname(socket.gethostname())
-        port = self.srv.srv.get_port()
-        self.hst_prt.setText(f"server started on {host}:{port}")
-        self.host_id.setText(host)
-        self.port_id.setText(str(port))
-        self.connect_btn_clicked(True)
+    def start_btn_clicked(self,chk):
+        super().start_btn_clicked(chk)
+        if chk:
+            self.srv = Create_Server()
+            import socket
+            self.threadpool.start(self.srv)
+            host = socket.gethostbyname(socket.gethostname())
+            port = self.srv.srv.get_port()
+            self.hst_prt.setText(f"server started on {host}:{port}")
+            self.host_id.setText(host)
+            self.port_id.setText(str(port))
+            self.connect_btn_clicked(True)
+        else:
+            self.srv.srv.terminate()            
 
     def print_mess(self,mess):
         try:
