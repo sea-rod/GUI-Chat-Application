@@ -138,8 +138,10 @@ class Main(intergui.intergui):
             self.host_id.setText(host)
             self.port_id.setText(str(port))
             self.connect_btn_clicked(True)
+            self.connect_btn.setEnabled(False)
         else:
-            self.srv.srv.terminate()            
+            self.srv.srv.terminate()
+            self.connect_btn.setEnabled(True)       
 
     def print_mess(self,mess):
         try:
