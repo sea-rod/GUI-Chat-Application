@@ -119,6 +119,7 @@ class Main(intergui.intergui):
         '''
         if self.client and self.sendMessId.text():
             mess = self.sendMessId.text()
+            self.client.send(mess)
             print(mess)
             lab = QLabel(mess,self.send_mess_area)
             lab.setFont(self.host_id.font())
@@ -156,6 +157,19 @@ padding:5;
             if mess == "xxxclosedxxx":
                 raise Exception("User Exist")
             print(mess)
+            lab = QLabel(mess,self.send_mess_area)
+            lab.setFont(self.host_id.font())
+            lab.setMinimumHeight(30)
+            lab.setStyleSheet('''QLabel{
+background:rgb(58, 58, 58);
+color:rgb(170, 170, 170);
+border-radius:10;
+padding:5;
+}''')
+            lab.setSizePolicy(QSizePolicy.MinimumExpanding,QSizePolicy.MinimumExpanding)
+            lab.setWordWrap(True)
+            self.verticalLayout_5.addWidget(lab,0,Qt.AlignBottom|Qt.AlignLeft)
+            lab.adjustSize()
         except Exception as e:
             self.error_occur()
             self.client = None

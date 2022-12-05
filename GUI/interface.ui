@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>400</height>
+    <width>750</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -79,7 +79,7 @@ color:rgb(209, 209, 209)
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item>
+    <item alignment="Qt::AlignHCenter">
      <widget class="QWidget" name="sidebar" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -87,10 +87,23 @@ color:rgb(209, 209, 209)
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <property name="styleSheet">
-       <string notr="true"/>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>0</height>
+       </size>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="styleSheet">
+       <string notr="true">QToolButton{
+border:none;
+color:rgb(214, 214, 214);
+padding:0 10;
+}
+QToolButton:hover{
+background-color:rgb(63, 2, 24);
+}</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
        <property name="spacing">
         <number>0</number>
        </property>
@@ -104,12 +117,12 @@ color:rgb(209, 209, 209)
         <number>0</number>
        </property>
        <property name="bottomMargin">
-        <number>6</number>
+        <number>0</number>
        </property>
-       <item alignment="Qt::AlignLeft|Qt::AlignTop">
+       <item alignment="Qt::AlignTop">
         <widget class="QWidget" name="side_main" native="true">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -121,13 +134,7 @@ color:rgb(209, 209, 209)
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">QToolButton{
-border:none;
-color:rgb(214, 214, 214);
-}
-QToolButton:hover{
-background-color:rgb(63, 2, 24);
-}</string>
+          <string notr="true"/>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <property name="spacing">
@@ -167,7 +174,7 @@ background-color:rgb(63, 2, 24);
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
+              <pointsize>13</pointsize>
              </font>
             </property>
             <property name="text">
@@ -226,7 +233,7 @@ background-color:rgb(63, 2, 24);
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
+              <pointsize>13</pointsize>
              </font>
             </property>
             <property name="text">
@@ -282,7 +289,7 @@ background-color:rgb(63, 2, 24);
             </property>
             <property name="font">
              <font>
-              <pointsize>10</pointsize>
+              <pointsize>13</pointsize>
              </font>
             </property>
             <property name="text">
@@ -291,6 +298,82 @@ background-color:rgb(63, 2, 24);
             <property name="icon">
              <iconset resource="../res/res.qrc">
               <normaloff>:/icons/connect</normaloff>:/icons/connect</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>25</width>
+              <height>25</height>
+             </size>
+            </property>
+            <property name="toolButtonStyle">
+             <enum>Qt::ToolButtonFollowStyle</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignBottom">
+        <widget class="QFrame" name="frame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QToolButton" name="exit_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>35</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>13</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>    Exit</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../res/res.qrc">
+              <normaloff>:/icons/logout</normaloff>:/icons/logout</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -656,8 +739,8 @@ border:0;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>590</width>
-            <height>318</height>
+            <width>640</width>
+            <height>368</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -684,21 +767,6 @@ border:1 solid rgb(71, 71, 71);</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QWidget" name="recv_mess_area" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>1</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background:transparent;
-border:0</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_4"/>
-            </widget>
-           </item>
-           <item>
             <widget class="QWidget" name="send_mess_area" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -718,8 +786,6 @@ border:0</string>
             </widget>
            </item>
           </layout>
-          <zorder>send_mess_area</zorder>
-          <zorder>recv_mess_area</zorder>
          </widget>
         </widget>
        </item>

@@ -14,23 +14,24 @@ class intergui(QMainWindow,Ui_MainWindow):
         self.send_btn.clicked.connect(self.send_btn_clicked)
         self.connect_btn.clicked.connect(self.connect_btn_clicked)
         self.start_btn.clicked.connect(self.start_btn_clicked)
+        self.exit_btn.clicked.connect(exit)
 
    
 
     def menu_btn_clicked(self,chk):
         if chk:
-            self.animation = QPropertyAnimation(self.side_main,b"minimumWidth")
+            self.animation = QPropertyAnimation(self.sidebar,b"minimumWidth")
             self.animation.setDuration(500)
-            self.animation.setStartValue(100)
-            self.animation.setEndValue(200)
+            self.animation.setStartValue(120)
+            self.animation.setEndValue(220)
             self.animation.start()
             self.menu_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
             self.create_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
             self.join_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-            
+            self.exit_btn.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
             
         else:
-            self.animation = QPropertyAnimation(self.side_main,b"minimumWidth")
+            self.animation = QPropertyAnimation(self.sidebar,b"minimumWidth")
             self.animation.setDuration(500)
             self.animation.setStartValue(200)
             self.animation.setEndValue(100)
@@ -39,6 +40,8 @@ class intergui(QMainWindow,Ui_MainWindow):
             self.menu_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
             self.create_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
             self.join_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
+            self.exit_btn.setToolButtonStyle(Qt.ToolButtonIconOnly)
+
 
     def start_btn_clicked(self,chk):
         if chk:

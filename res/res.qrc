@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file alias="logout">icons/logout.png</file>
     <file alias="create">icons/add-button.png</file>
     <file alias="connect">icons/connect.png</file>
     <file alias="menu">icons/menu.png</file>
