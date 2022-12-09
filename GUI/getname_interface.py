@@ -2,7 +2,8 @@ from .ui_GetName import Ui_diaName
 from PySide2.QtWidgets import QDialog
 from PySide2.QtCore import Qt
 
-class NameWind(QDialog,Ui_diaName):
+
+class NameWind(QDialog, Ui_diaName):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Insert Name")
